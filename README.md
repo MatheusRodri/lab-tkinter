@@ -1,90 +1,138 @@
-# 🖥️ Tkinter & CustomTkinter Study Lab
+# Tkinter & CustomTkinter Study Lab
 
-🔁 **Last Update:** 16/05/2026  
-🚀 **Execution:** Desktop App (Local)
+[![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)](https://www.python.org/)
+[![CustomTkinter](https://img.shields.io/badge/CustomTkinter-007ACC?style=for-the-badge)](https://customtkinter.tomaszgasior.pl/)
+[![uv](https://img.shields.io/badge/uv-de5fe9?style=for-the-badge&logo=uv&logoColor=white)](https://github.com/astral-sh/uv)
+[![Windows](https://img.shields.io/badge/Windows-0078D4?style=for-the-badge&logo=windows&logoColor=white)](https://www.microsoft.com/windows)
 
----
+## Table of Contents
 
-## 📋 Summary
-- [📖 About Project](#-about-project)
-- [🛠️ Technologies Used](#%EF%B8%8F-technologies-used)
-- [📋 Requirements](#-requirements)
-- [🚀 How to Run](#-how-to-run)
-- [👨‍💻 Author](#-author)
+- [Context](#-context)
+- [Software features](#-software-features)
+- [Technologies and tools](#-technologies-and-tools)
+- [Architecture](#-architecture)
+- [Repository structure](#-repository-structure)
+- [Requirements](#-requirements)
+- [How to run](#-how-to-run)
+- [Autor](#-autor)
 
----
+# 📌 Context 
 
-## 📖 About Project
-This is a study repository dedicated to developing Desktop Graphical User Interfaces (GUIs) in Python. The project demonstrates practical learning steps, starting from the basic dialogue boxes of the standard **Tkinter** library to the construction of a modern, modular desktop application with native theme support (such as Dark Mode) using **CustomTkinter**.
+Este é um repositório de estudos dedicado ao desenvolvimento de Interfaces Gráficas de Usuário (GUIs) para Desktop em Python. O projeto demonstra passos práticos de aprendizado, partindo das caixas de diálogo nativas e básicas da biblioteca padrão **Tkinter** até a construção de uma aplicação desktop robusta, moderna e modular com suporte nativo a temas (como o Modo Escuro/Claro) utilizando o **CustomTkinter**.
 
-The project structure is divided into three main implementation phases:
+O repositório documenta a evolução dos estudos em três fases de implementação distintas:
+1. **Caixas de Diálogo Nativa (`main.py`)**: Interações de sistema com caixas de alerta (`messagebox`), entrada de texto (`simpledialog`) e seleção de caminhos de arquivos locais (`filedialog`).
+2. **Interface Simples (`sistema.py`)**: Layout estrutural básico de uma tela de cadastro usando os widgets clássicos do Tkinter com posicionamento via gerenciador `pack`.
+3. **Aplicação Completa (`sistema-completo.py`)**: Uma interface rica desenvolvida sob conceitos de Orientação a Objetos (OOP) com CustomTkinter, dotada de barra lateral, abas, simulações de carregamento e manipulação de preferências em tempo real.
 
-1. **`main.py`**: Initial exploration of basic user interactions using system dialogs, such as displaying alerts (`messagebox`), entering data in text fields (`simpledialog`), and selecting local files (`filedialog`).
-2. **`sistema.py`**: Initial structure of a registration window built with native Tkinter, applying basic layout positioning (`pack`) and font customization.
-3. **`sistema-completo.py`**: A robust, fully featured desktop application built using Object-Oriented Programming (OOP) with **CustomTkinter**. The interface features:
-   - 📊 **Main Dashboard**: An interactive data processing simulator using a progress bar (`CTkProgressBar`).
-   - 👥 **Profile Tab**: A user registration form containing text fields, radio buttons (`CTkRadioButton`), email notification checkboxes (`CTkCheckBox`), and dynamic updates to the sidebar window header.
-   - ⚙️ **Preferences Tab**: A dropdown menu (`CTkOptionMenu`) for language selection and an interactive volume slider (`CTkSlider`) that dynamically updates the percentage label on screen in real time.
-   - 🌓 **Dark / Light Mode**: A quick switch (`CTkSwitch`) on the sidebar to change the application's appearance theme instantly.
+## 🚀 Software features
 
----
+- **Alternador de Tema (Modo Escuro / Claro)**: Um switch deslizante (`CTkSwitch`) na barra lateral que altera dinamicamente todo o esquema visual do sistema.
+- **Simulador de Dashboard**: Uma barra de progresso interativa (`CTkProgressBar`) que simula o carregamento ou processamento de informações em tempo real.
+- **Formulário de Perfil Completo**: Campos de entrada de texto (`CTkEntry`), seleção de níveis de permissão com botões de rádio (`CTkRadioButton`) e opções de preferências via caixa de seleção (`CTkCheckBox`).
+- **Atualização Dinâmica de Estado**: Ao salvar as configurações do perfil, o cabeçalho e subtítulo da barra lateral são atualizados instantaneamente com o nome e nível de acesso configurados.
+- **Painel de Preferências**: Opções de seleção de idiomas (`CTkOptionMenu`) e controle deslizante de volume (`CTkSlider`) que atualiza a porcentagem exibida na interface em tempo real.
+- **Gerenciador de Abas Modular**: Transição fluida entre abas organizadas (`Perfil`, `Preferências`, `Dashboard`) usando o componente `CTkTabview`.
 
-## 🛠️ Technologies Used
-- **Python** (Version >= 3.12)
-- **Tkinter** (Python's standard GUI library)
-- **CustomTkinter** (Modern extension for custom widgets with dynamic theme support)
-- **UV** (Extremely fast Python package installer and resolver)
+## 🛠️ Technologies and tools
 
----
+- **Language**: Python (versão >= 3.12)
+- **Framework**: CustomTkinter, Tkinter (GUI Nativa do Python)
+- **Database**: N/A (Persistência em memória/simulado em console)
+- **Tools**: UV (Gerenciador e instalador de pacotes ultrarrápido para Python), VS Code
 
-## 📋 Requirements
-To run this study lab in your local environment, you will need:
-- **Python** (version 3.12 or higher recommended)
-- **UV** (package manager) installed on your machine
-- A code editor of your choice (such as **Visual Studio Code**)
+## 📋 Architecture
 
----
+A aplicação principal (`sistema-completo.py`) foi desenhada com uma arquitetura modular orientada a objetos (OOP) herdando de `customtkinter.CTk`. Abaixo está a representação estrutural da hierarquia de componentes da interface:
 
-## 🚀 How to Run
+```mermaid
+graph TD
+    A[Janela Principal: Aplicativo] --> B[Barra Lateral: CTkFrame]
+    A --> C[Janela de Abas: CTkTabview]
+    
+    B --> B1[Título do Aplicativo]
+    B --> B2[Subtítulo Dinâmico]
+    B --> B3[Botão Atalho: CTkButton]
+    B --> B4[Switch de Tema: CTkSwitch]
+    
+    C --> C1[Aba Perfil: CTkFrame]
+    C --> C2[Aba Preferências: CTkFrame]
+    C --> C3[Aba Dashboard: CTkFrame]
+    
+    C1 --> C1a[Nome: CTkEntry]
+    C1 --> C1b[Nível de Usuário: CTkRadioButton]
+    C1 --> C1c[Notificações: CTkCheckBox]
+    C1 --> C1d[Salvar Perfil: CTkButton]
+    
+    C2 --> C2a[Idiomas: CTkOptionMenu]
+    C2 --> C2b[Volume: CTkSlider]
+    C2 --> C2c[Label de Volume: CTkLabel]
+    
+    C3 --> C3a[Título: CTkLabel]
+    C3 --> C3b[Progresso: CTkProgressBar]
+    C3 --> C3c[Iniciar Carregamento: CTkButton]
+```
 
-Follow the steps below to set up your environment and test the applications:
+### Fluxo de Comportamento dos Componentes:
+- **Gerenciamento de Aparência**: O switch `mudar_modo_dark` altera a propriedade de aparência global chamando `ctk.set_appearance_mode(...)`.
+- **Sincronização de Dados**: O botão "Salvar Perfil" lê os valores dos inputs do formulário na aba Perfil e atualiza o estado dos widgets de texto presentes na barra lateral.
+- **Manipulação de Eventos em Tempo Real**: O slider de volume utiliza um callback para atualizar o valor percentual em tempo real na tela.
+- **Processamento de Progresso**: O botão "Iniciar Carregamento" executa um loop de atualização da barra de progresso que força a atualização do frame gráfico através de `self.update()`.
 
-### 1. Clone the Repository
-Clone this repository to your local machine and open the directory in your code editor:
+## 📁 Repository structure
+
+```
+lab-tkinter/
+├── .vscode/                 # Configurações do ambiente de desenvolvimento no VS Code
+├── main.py                  # Script inicial de exploração das caixas de diálogo nativas do Tkinter
+├── pyproject.toml           # Configuração do projeto e suas dependências (CustomTkinter)
+├── README.md                # Documentação e guia do projeto (este arquivo)
+├── sistema.py               # Interface básica de estudo construída em Tkinter nativo
+├── sistema-completo.py      # Aplicação desktop completa em CustomTkinter orientada a objetos
+└── uv.lock                  # Arquivo de bloqueio de versões de pacotes gerado pelo UV
+```
+
+## 📦 Requirements
+
+- **Python**: Versão 3.12 ou superior instalada.
+- **UV**: Gerenciador de pacotes e ambientes Python instalado (recomendado para gerenciar o ambiente虚拟).
+- **Editor de Código**: Visual Studio Code ou qualquer outro editor compatível.
+
+## ⚙️ How to run
+
+### 1. Clonar o Repositório
+Faça o clone do repositório para o seu ambiente local e acesse o diretório:
 ```bash
 git clone https://github.com/MatheusRodri/lab-tkinter.git
 cd lab-tkinter
 ```
 
-### 2. Install Dependencies
-With **UV** installed, run the following command in your terminal to automatically synchronize and install all project dependencies (this handles the `.venv` virtual environment for you):
+### 2. Instalar as Dependências
+Com o **UV** instalado, execute o comando a seguir na pasta do projeto para criar o ambiente virtual `.venv` e instalar automaticamente o CustomTkinter:
 ```bash
 uv sync
 ```
 
-### 3. Run the Study Scripts
+### 3. Executar as Etapas de Estudo
 
-You can run each of the learning phase scripts directly from your terminal:
+Você pode rodar cada um dos scripts sequenciais usando os comandos correspondentes abaixo:
 
-#### 🔹 A. Test System Dialogs (`main.py`)
-To see pop-ups and file selectors in action:
-```bash
-uv run main.py
-```
+*   **Executar Diálogos Nativo (`main.py`)**:
+    ```bash
+    uv run main.py
+    ```
 
-#### 🔹 B. Test Initial Tkinter UI (`sistema.py`)
-To display the simple registration window with custom typography:
-```bash
-uv run sistema.py
-```
+*   **Executar Interface Inicial (`sistema.py`)**:
+    ```bash
+    uv run sistema.py
+    ```
 
-#### 🔹 C. Run the Complete Application (`sistema-completo.py`)
-To launch the full app with its sidebar, tab managers, forms, and interactive progress bar:
-```bash
-uv run sistema-completo.py
-```
+*   **Executar Sistema Completo (`sistema-completo.py`)**:
+    ```bash
+    uv run sistema-completo.py
+    ```
 
----
+## 👤 Autor
 
-## 👨‍💻 Author
-**Matheus Rodrigues**
+Matheus Rodrigues 
+[LinkedIn](https://linkedin.com/in/matheus-rodrigues-mrj) [GitHub](https://github.com/MatheusRodri)
